@@ -10,7 +10,7 @@ import '../theme/css/sidebar.css';
 
 const { Header, Content, Sider } = Layout;
 
-const menuItems = [
+const menuItemsStudent = [
   {
     key: "/",
     icon: React.createElement(LaptopOutlined),
@@ -72,7 +72,15 @@ const menuItems = [
   // }
 ];
 
-const SiderBar = ({ page, pageName, pageSub, path }) => {
+const menuItemsTeacher = [
+  {
+    key: "/",
+    icon: React.createElement(LaptopOutlined),
+    label: "หน้าหลัก",
+  },
+];
+
+const SiderBar = ({ page, pageName, pageSub, path, rolePage }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -113,7 +121,7 @@ const SiderBar = ({ page, pageName, pageSub, path }) => {
             mode="inline"
             selectedKeys={[selectedKey]}
             defaultOpenKeys={["sub1"]}
-            items={menuItems}
+            items={rolePage === "student" ? menuItemsStudent : menuItemsTeacher}
             onClick={handleMenuClick}
           />
         </Sider>
