@@ -1,0 +1,32 @@
+/* SiderBar.css */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 15vh;
+  }
+  
+  .logo {
+    object-fit: contain;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .sider {
+    height: 100vh;
+    border-right: 0;
+  }
+  
+  .content {
+    padding: 24px;
+    margin: 0;
+    min-height: 280px;
+    word-break: break-word;
+    white-space: normal;
+  }
+  
+  .breadcrumb {
+    margin: 16px 0;
+  }
+  

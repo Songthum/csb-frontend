@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { navigate } from 'react-router-dom';
+import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import api from './module/utils/form/api';
+import staff from './module/public/image/staff.png';
 import './App.css';
 
 function App() {
+  const [data , setData] = useState([]);
+  const fetchData = () => {
+    api.getHomePage()
+    .then((res) => {
+      console.log(res);
+      setData(res.data.body);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  },[]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <div>
+      <h1>สวัสดี เจ้าหน้าที่ CSB ทุกท่าน</h1>
+      {/* <img src={staff} className="App-logo" alt="logo" /> */}
+      <img src={staff} className="" alt="logo" />
+     </div>
+    </>
   );
 }
 
