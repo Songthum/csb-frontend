@@ -5,6 +5,7 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import api from './module/utils/form/api';
 import staff from './module/public/image/staff.png';
 import './App.css';
+import student from './module/public/image/student.gif';
 
 function App() {
   const [data , setData] = useState([]);
@@ -27,9 +28,9 @@ function App() {
   return (
     <>
      <div>
-      <h1>สวัสดี เจ้าหน้าที่ CSB ทุกท่าน</h1>
+      <h1>Hello, CSB students!</h1>
       {/* <img src={staff} className="App-logo" alt="logo" /> */}
-      <img src={staff} className="" alt="logo" />
+      <img src={student} className="" alt="logo" />
      </div>
     </>
   );

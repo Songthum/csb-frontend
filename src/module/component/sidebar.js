@@ -77,6 +77,27 @@ const menuItemsTeacher = [
     key: "/",
     icon: React.createElement(LaptopOutlined),
     label: "หน้าหลัก",
+
+  },
+  {
+    key: "/input-score",
+    icon: React.createElement(FormOutlined),
+    label: "ประเมินคะแนน",
+    children: [
+      {
+        key: "/input-score/inputscore-csb01",
+        
+        label: "ประเมินหัวข้อ",
+      },
+      {
+        key: "/input-score/inputscore-csb02",
+        label: "ประเมินก้าวหน้า",
+      },
+      {
+        key: "input-score/inputscore-csb04",
+        label: "ประเมินป้องกัน", 
+      },
+    ]
   },
 ];
 
