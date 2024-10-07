@@ -19,7 +19,7 @@ return  [
           pageName={"หน้าหลัก"}
           pageSub={""}
           path={"/"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -31,7 +31,7 @@ return  [
           pageName={"ตรวจสอบคุณสมบัตินักศึกษา"}
           pageSub={""}
           path={"/special-project-1/provider"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -43,7 +43,7 @@ return  [
           pageName={"ยื่นสอบหัวข้อ"}
           pageSub={""}
           path={"/special-project-1/exam-csb01"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -55,7 +55,7 @@ return  [
           pageName={"ยื่นสอบก้าวหน้า"}
           pageSub={""}
           path={"/special-project-1/exam-csb02"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -67,7 +67,7 @@ return  [
           pageName={"ตรวจสอบคุณสมบัตินักศึกษา"}
           pageSub={""}
           path={"/special-project-2/provider"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -79,7 +79,7 @@ return  [
           pageName={"ยื่นสอบหัวข้อ"}
           pageSub={""}
           path={"/special-project-2/exam-csb03"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -91,7 +91,7 @@ return  [
           pageName={"ยื่นสอบป้องกัน"}
           pageSub={""}
           path={"/special-project-2/exam-csb04"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     },
@@ -103,7 +103,7 @@ return  [
           pageName={"ตรวจสอบสถานะโครงงาน"}
           pageSub={""}
           path={"/project-status"}
-          rolePage={"student"}
+          rolePage={"students"}
         />
       ),
     }

@@ -1,103 +1,87 @@
-import React from "react";
-import { Form, Input, Checkbox, Button, Typography } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Typography, DatePicker, Space ,Row ,Col } from "antd";
+import cis from '../../../../public/image/cis.png';
 
 const { Title, Paragraph } = Typography;
+const { RangePicker } = DatePicker;
 
 export default function ExamCSB03() {
+  const [isSubmitDisabled, setSubmitDisabled] = useState(false); // เพิ่ม state เพื่อจัดการปุ่ม submit
+  const [data, setData] = useState({
+    projectName: "ระบบจัดการข้อมูลโครงงาน",
+    student1: "John Doe",
+    student2: "Jane Smith",
+    lecturer: "Dr. Somsak J",
+  });
+
   const onFinish = (values) => {
     console.log("Form values: ", values);
+    handleSubmit(values);
+  };
+
+  const handleSubmit = (values) => {
+    let body = {
+      examName: values.projectName,
+      examStartDate: values.examDate[0].format("YYYY-MM-DD HH:mm"),
+      examEndDate: values.examDate[1].format("YYYY-MM-DD HH:mm"),
+    };
+  };
+
+  const handleAccept = () => {
+    console.log("ยินยอม");
+  };
+
+  const handleDecline = () => {
+    console.log("ปฏิเสธ");
   };
 
   return (
-    <div style={{ padding: 40, backgroundColor: "#f0f2f5", minHeight: "100vh" }}>
-      <div style={{  margin: "auto", backgroundColor: "#fff", padding: 40, borderRadius: 10, }}>
-        <Typography style={{ textAlign: "center", marginBottom: 24 }}>
-          <Title level={3}>แบบฟอร์มเสนอหัวข้อโครงงานพิเศษ</Title>
-          <Paragraph>
-            โครงการพิเศษ (สองภาษา) ภาควิชาวิทยาการคอมพิวเตอร์และสารสนเทศ
-            คณะวิทยาศาสตร์ประยุกต์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ
-          </Paragraph>
-        </Typography>
+    <div style={{ maxWidth: 600, margin: "auto", padding: 40, borderRadius: 15,}}>
+    <div style={{ margin: "auto", backgroundColor: "#fff", padding: 40, borderRadius: 10 }}>
+      <img src={cis} alt="logo" style={{ display: "block", margin: "0 auto", width: "150px" }} />
+      <Typography style={{ textAlign: "center", marginBottom: 24 }}>
+        <Title level={3}>หนังสือรับรองการทดสอบโครงงานพิเศษ</Title>
+        <Paragraph>
+          โครงการพิเศษ (สองภาษา) ภาควิชาวิทยาการคอมพิวเตอร์และสารสนเทศ<br />
+          คณะวิทยาศาสตร์ประยุกต์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ
+        </Paragraph>
+      </Typography>
 
-        <Form
-          name="projectForm"
-          layout="vertical"
-          onFinish={onFinish}
-          style={{ maxWidth: 600, margin: "auto" }}
-        >
-          <Form.Item
-            label="ชื่อนักศึกษาคนที่ 1"
-            name="student1"
-            rules={[{ required: true, message: "กรุณากรอกชื่อนักศึกษาคนที่ 1" }]}
-          >
-            <Input placeholder="ชื่อนักศึกษาคนที่ 1" />
-          </Form.Item>
-
-          <Form.Item
-            label="ชื่อนักศึกษาคนที่ 2"
-            name="student2"
-            rules={[{ required: true, message: "กรุณากรอกชื่อนักศึกษาคนที่ 2" }]}
-          >
-            <Input placeholder="ชื่อนักศึกษาคนที่ 2" />
-          </Form.Item>
-
-          <Form.Item
-            label="ชื่อโครงงานภาษาอังกฤษ"
-            name="projectName"
-            rules={[{ required: true, message: "กรุณากรอกชื่อโครงงานภาษาอังกฤษ" }]}
-          >
-            <Input placeholder="ชื่อโครงงานภาษาอังกฤษ" />
-          </Form.Item>
-
-          <Form.Item
-            label="ชื่ออาจารย์ที่ปรึกษา (ถ้ามี)"
-            name="lecturer"
-            // rules={[{ required: true, message: "กรุณากรอกชื่ออาจารย์ที่ปรึกษา" }]}
-          >
-            <Input placeholder="ชื่ออาจารย์ที่ปรึกษา" />
-          </Form.Item>
-
-          <Form.Item 
-            label="ประเภทโครงงาน"
-            name="projectType"
-            rules={[{ required: true, message: "กรุณาเลือกประเภทโครงงาน" }]}
-
-          >
-            
-            <Checkbox.Group>
-              <Checkbox value="topic1">Network & Cyber Security</Checkbox>
-              <Checkbox value="topic2">Mobile and Web Technology (Web application / Mobile Application)</Checkbox>
-              <Checkbox value="topic3">Smart Technology</Checkbox>
-              <Checkbox value="topic4">Artificial Intelligence</Checkbox>
-              <Checkbox value="topic5">Games & Multimedia</Checkbox>
-            </Checkbox.Group>
-          </Form.Item>
-
-          <Form.Item
-            label="รายละเอียด"
-            name="details"
-            rules={[{ required: true, message: "กรุณากรอกรายละเอียด" }]}
-          >
-            <Input.TextArea placeholder="กรอกรายละเอียด" rows={4} />
-          </Form.Item>
-
-          <Form.Item
-            label="เครื่องมือที่ใช้"
-            name="tools"
-            rules={[{ required: true, message: "กรุณากรอกเครื่องมือที่ใช้" }]}
-          >
-            <Input placeholder="กรอกเครื่องมือที่ใช้" />
-          </Form.Item>
-
-          <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button type="primary" htmlType="submit">
-              บันทึก
-            </Button>
-          </Form.Item>
-        </Form>
+      <div><br />
+        <Paragraph style={{ fontSize: "18px" }}>โครงงาน</Paragraph>
+        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.projectName}</Paragraph>
       </div>
+
+      <div><br />
+      <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 1</Paragraph>
+        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student1}</Paragraph>
+      </div>
+
+      <div><br />
+      <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 2</Paragraph>
+        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student2}</Paragraph>
+      </div>
+
+      <div><br />
+        <Paragraph style={{ fontSize: "18px" }}>อาจารย์ที่ปรึกษา</Paragraph>
+        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.lecturer}</Paragraph>
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 40 }}>
+        <Row gutter={16}>
+          <Col>
+            <Button type="primary" onClick={handleAccept} style={{ padding: "6px 30px", fontSize: "16px" }}>
+              ยินยอม
+            </Button>
+          </Col>
+          <Col>
+            <Button type="primary" danger onClick={handleDecline} style={{ padding: "6px 30px", fontSize: "16px" }}>
+              ปฏิเสธ
+            </Button>
+          </Col>
+        </Row>
+      </div>
+    </div>
     </div>
   );
 }
-
- 
