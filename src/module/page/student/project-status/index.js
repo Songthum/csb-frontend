@@ -43,7 +43,7 @@ export default function ProjectStatus(){
     ];
 
     return (
-        <Layout style={{ padding: '50px' }}>
+
             <Content>
                 <Title level={2}>ตรวจสอบสถานะต่างๆ</Title>
 
@@ -54,7 +54,7 @@ export default function ProjectStatus(){
                         pagination={false}
                     />
             </Content>
-        </Layout>
+
     );
 };
 
