@@ -2,17 +2,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import '../theme/css/sidebar.css';
 import Student from './student';
-import Teacher from './personal';
+import Teacher from './personel';
 import Error from '../component/error';
 
 let initRoute = [];
 let role = '';
-//  role = 'personnal'; 
- role = 'students'; 
+ role = 'personel'; 
+//  role = 'students'; 
 
 if(role === 'students'){
   initRoute = Student();
-}else if(role === 'personnal'){
+}else if(role === 'personel'){
   initRoute = Teacher();
 }else{
   initRoute = [{

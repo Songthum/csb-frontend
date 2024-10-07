@@ -1,5 +1,7 @@
 import React from "react";
 import { Form, Input, Checkbox, Button, Typography } from "antd";
+import cis from '../../../../public/image/cis.png';
+
 
 const { Title, Paragraph } = Typography;
 
@@ -9,7 +11,12 @@ export default function ExamCSB01() {
   };
 
   return (
-    <div style={{ padding: 40, backgroundColor: "#f0f2f5", minHeight: "100vh" }}>
+    <div>
+            <img
+        src={cis}
+        alt="logo"
+        style={{ display: "block", margin: "0 auto", width: "150px" }}
+      />
       <div style={{  margin: "auto", backgroundColor: "#fff", padding: 40, borderRadius: 10, }}>
         <Typography style={{ textAlign: "center", marginBottom: 24 }}>
           <Title level={3}>แบบฟอร์มเสนอหัวข้อโครงงานพิเศษ</Title>
