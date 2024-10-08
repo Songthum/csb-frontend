@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Typography, Button, Row, Col } from "antd";
+import { Typography, Button, Row, Col, notification } from "antd";
 import cis from '../../../../public/image/cis.png';
 
 const { Title, Paragraph } = Typography;
 
-export default function ExamCSB02() {
+export default function ExamCSB04() {
   const [data, setData] = useState({
     projectName: "ระบบจัดการข้อมูลโครงงาน",
     student1: "John Doe",
@@ -14,19 +14,29 @@ export default function ExamCSB02() {
 
   const handleAccept = () => {
     console.log("ยินยอม");
+    notification.success({
+      message: 'ยินยอม',
+      description: 'ท่านยินยอมสอบป้องกันโครงงานพิเศษแล้ว',
+      placement: 'topRight',
+    });
   };
 
   const handleDecline = () => {
     console.log("ปฏิเสธ");
+    notification.error({
+      message: 'ปฏิเสธ',
+      description: 'ท่านปฏิเสธสอบป้องกันโครงงานพิเศษแล้ว',
+      placement: 'topRight',
+    });
   };
 
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 40, borderRadius: 15,}}>
+    <div style={{ maxWidth: 600, margin: "auto", padding: 40, borderRadius: 15 }}>
       <img src={cis} alt="logo" style={{ display: "block", margin: "0 auto", width: "150px" }} />
 
       <Typography style={{ textAlign: "center", marginBottom: 24 }}>
-        <Title level={3} style={{ fontWeight: "bold" }}>แบบฟอร์มขอสอบป้องกันปริญญานิพนธิ์</Title>
-        <Paragraph style={{ fontSize: "16px"}}>
+        <Title level={3} style={{ fontWeight: "bold" }}>แบบฟอร์มขอสอบความก้าวหน้าโครงงานพิเศษ</Title>
+        <Paragraph style={{ fontSize: "16px" }}>
           โครงการพิเศษ (สองภาษา) ภาควิชาวิทยาการคอมพิวเตอร์และสารสนเทศ <br />
           คณะวิทยาศาสตร์ประยุกต์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ
         </Paragraph>
@@ -38,12 +48,12 @@ export default function ExamCSB02() {
       </div>
 
       <div><br />
-      <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 1</Paragraph>
+        <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 1</Paragraph>
         <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student1}</Paragraph>
       </div>
 
       <div><br />
-      <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 2</Paragraph>
+        <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 2</Paragraph>
         <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student2}</Paragraph>
       </div>
 

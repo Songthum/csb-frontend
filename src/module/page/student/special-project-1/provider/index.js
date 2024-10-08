@@ -68,7 +68,7 @@ export default function ProjectEvaluation() {
         </div>
       )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 20 }}>
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
         <Button type="primary" onClick={handleSubmit}>
           ส่งไฟล์
         </Button>
