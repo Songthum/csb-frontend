@@ -4,7 +4,6 @@ import { Table, InputNumber, Form, Button, Card, Input } from "antd";
 const { TextArea } = Input;
 
 export default function InputScoreCSB01() {
-    // ข้อมูลนักศึกษาและโครงงาน
     const studentInfo = {
         studentID: ["6304062636120", "6304062620061"],
         students: ["ทรงธรรม คงสมปราชญ์", "ณัชริกา กันทะสอน"],
@@ -12,80 +11,125 @@ export default function InputScoreCSB01() {
         TprojectName: "รองศาสตราจารย์ ดร.ธนภัทร์ อนุศาสน์อมรกุล",
     };
 
-    // เกณฑ์พิจารณาและคะแนนเต็ม
     const criteriaData = [
-        { key: "1", criteria: "แนวคิด/กลักการ สามารถแก้ไขปัญหาได้", maxScore: 3 },
-        { key: "2", criteria: "การนำเสนอต้นแบบของระบบ", maxScore: 3 },
-        { key: "3", criteria: "การกำหนดกลุ่มเป้าหมายของระบบ และผลกระทบที่คาดว่าจะได้รับ", maxScore: 3 },
-        { key: "4", criteria: "การศึกษา เปรียบเทียบ จุดเด่นและจุดด้อยของระบบใกล้เคียง หรือระบบที่เกี่ยวข้อง", maxScore: 3 },
-        { key: "5", criteria: "การต่อยอดงานในอนาคต", maxScore: 3 },
-        { key: "6", criteria: "ศึกษาเทคนิค/วิธีการที่เกี่ยวข้อง และข้อจำกัดของอุปกรณ์หรือระบบที่เกี่ยวข้อง", maxScore: 3 },
-        { key: "7", criteria: "การเลือกใช้วิธีการ/เทคโนโลยีที่ถูกต้องและเหมาะสม", maxScore: 3 },
-        { key: "8", criteria: "ขอบเขตและปริมาณงานที่เหมาะสมกับปริญญานิพนธ์ในสาขาวิชาวิทยาการคอมพิวเตอร์ และเหมาะสมตามกรอบเวลา", maxScore: 3 },
+        { key: "1", criteria: "การแนะนำสมาชิกและการแนะนำระบบที่จะพัฒนา", maxScore: 3 },
+        { key: "2", criteria: "พิจารณาถึงเนื้อหาในสไลด์และวิธีนำเสนองาน", maxScore: 3 },
+        { key: "3", criteria: "ที่มาของปัญหา และหลักฐานสนับสนุน", maxScore: 3 },
+        { key: "4", criteria: "แนวคิด / หลักการสามารถแก้ปัญหาได้", maxScore: 3 },
+        { key: "5", criteria: "การนำเสนอต้นแบบของระบบ เช่น mockup / wirefreame / story board / system architecture", maxScore: 3 },
+        { key: "6", criteria: "การกำหนดกลุ่มเป้าหมายของระบบ และผลกระทบที่คาดว่าจะได้รับ", maxScore: 3 },
+        { key: "7", criteria: "การศึกษา เปรียบเทียบจุดเด่นและเจุดด้อยของระบบใกล้เคียง หรือระบบที่เกี่ยวข้อง", maxScore: 3 },
+        { key: "8", criteria: "การต่อยอดงานในอนาคต", maxScore: 3 },
+        { key: "9", criteria: "ศึกษาเทคนิค/วิธีการที่เกี่ยวข้องและข้อจำกัดของอุปกรณ์หรือระบบที่เกี่ยวข้อง", maxScore: 3 },
+        { key: "10", criteria: "การเลือกใช้วิธี / เทคโนโลยีที่ถูกต้องและเหมาะสม ", maxScore: 3 },
+        { key: "11", criteria: "ลักษณะงาน ขอบเขตที่เหมาะสมกับปริญญานิพนธ์ในสาขาวิชาวิทยาการคอมพิวเตอร์ รวมถึงปริมาณงานเหมาะสมตามกรอบเวลา", maxScore: 3 },
+
     ];
 
-    // ข้อมูลย่อยสำหรับแต่ละแถว
     const additionalData = [
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการแนะนำสมาชิก<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการเเนะนำระบบ / Application ถ้วน
+                </div>
+            ),
+            detail2: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการแนะนำบางส่วนแต่ไม่ครบถ้วน
+
+                </div>
+            ),
+            detail3: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    <u>ไม่</u>มีการแนะนำสมาชิกหรือแนะนำระบบเลย
+                </div>
+            ),
+        },
+        {
+            detail1: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการสื่อกับผู้ฟัง สบตา น้ำเสียงน่าติดตาม พูดฉะฉาน ชัดถ้อยชัดคำ<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการนำเสนอน่าติดตามตลอดการบรรยาย<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    เนื้อหากระชับ ครบถ้วน
+                </div>
+            ),
+            detail2: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีการสื่อกับผู้ฟัง สบตาบ้าง<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    การนำเสนอน่าติดตามในบางช่วง<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ความยาวเนื้อหาไม่เหมาะสม
+                </div>
+            ),
+            detail3: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    <u>ไม่</u>มีการสื่อกับผู้ฟัง หรือ<u>ไม่</u>สบตา<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    การที่นำเสนอ<u>ไม่</u>น่าติดตาม<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ความยาวเนื้อหา<u>ไม่</u>เหมาะสม
+                </div>
+            ),
+        },
+        {
+            detail1: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    นำเสนอปัญหาตรงเป้า<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีข้อมูล หลักการ หรือผลทดสอบสนับสนุนการนำเสนอ<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ใช้เเหล่งข้อมูลอ้างอิงที่มีความน่าเชื่อถือ
+                </div>
+            ),
+            detail2: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ปัญหาที่นำเสนอครอบคลุมบางส่วน<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    มีร่องรอยของหลักฐาน เช่น ข้อมูล หลักการ หรือผลทดสอบสนับสนุน
+                </div>
+            ),
+            detail3: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ระบุปัญหา<u>ไม่</u>ตรงเป้าหรือไม่ใช่ปัญหา<br />
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    <u>ไม่</u>มีข้อมูล หลักการ หรือ ผลทดสอบ เพื่อสนับสนุนการนำเสนอปัญหา
+                </div>
+            ),
+        },
+        {
+            detail1: (
+                <div>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     แนวทางหรือหลักการ สามารถแก้ปัญหาได้อย่างสมบูรณ์<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     เป็นวิธีการที่มีประสิทธิภาพและมีความเหมาะสม
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     แนวทางการแก้ปัญหาได้บางส่วน แต่อาจยังไม่ครบถ้วน<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     แนวทางหรือหลักการยังไม่มีประสิทธิภาพเท่าที่ควร
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     แนวทางหรือหลักการที่นำเสนอแก้ปัญหา<u>ไม่</u>ตรงเป้า
                 </div>
             ),
@@ -93,73 +137,25 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     ต้นแบบของระบบ มีความครบถ้วนและสมบูรณ์<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     System architecture ถูกต้องและครบถ้วน
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     นำเสนอต้นแบบของระบบ แต่ไม่ครบถ้วน<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการนำเสนอ system architecture แต่ไม่ครบถ้วน
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>ต้นแบบของระบบ<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>system architecture
                 </div>
             ),
@@ -167,63 +163,23 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     ระบุกลุ่มเป้าหมายที่ชัดเจนและถูกต้อง<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการศึกษาผลกระทบต่อกลุ่มเป้าหมายที่คาดว่าจะได้รับ
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการระบุกลุ่มเป้าหมาย แต่ไม่ชัดเจนหรือไม่ถูกต้อง<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีร่องรอยการศึกษาผลกระทบต่อกลุ่มเป้าหมาย
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>การกำหนดกลุ่มเป้าหมายของระบบงานที่นำเสนอ
                 </div>
             ),
@@ -231,83 +187,27 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการศึกษาระบบที่ใกล้เคียง/เกี่ยวข้องอย่างน้อย 2 ระบบ<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการนำเสนอจุดเด่นและจุดด้อยของงานที่พัฒนา<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการเปรียบเทียบระบบที่จะพัฒนาและระบบใกล้เคียง
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีร่องรอยการศึกษาระบบที่ใกล้เคียงหรือเกี่ยวข้อง<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการนำเสนอจุดเด่นและจุดด้อยของงานที่พัฒนา
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>ร่องรอยการศึกษาระบบที่ใกล้เคียงหรือเกี่ยวข้อง<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     ไม่มีการนำเสนอจุดเด่นและจุดด้อยของงานที่จะพัฒนา
                 </div>
             ),
@@ -315,43 +215,19 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการนำเสนอแนวคิดต่อยอดไปข้างหน้าที่ชัดเจน
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการนำเสนอแต่ไม่ชัดเจน
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>การนำเสนอการต่อยอดงาน
                 </div>
             ),
@@ -359,53 +235,21 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการศึกษาความเป็นไปได้ของวิธีการ รวมทั้งระบบงานที่เกี่ยวข้องงเป็นอย่างดี<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีการศึกษาถึงข้อจำกัดของอุปกรณ์/ระบบที่เกี่ยวข้อง
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     มีร่องรอยของการศึกษาความเป็นไปได้ของงานหรือระบบที่เกี่ยวข้อง
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     <u>ไม่มี</u>การศึกษาความเป็นไปได้ของวิธีการ หรือ<u>ไม่มี</u>การศึกษาถึงข้อจำกัดของอุปกรณ์/ระบบที่เกี่ยวข้อง
                 </div>
             ),
@@ -413,63 +257,23 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     วิธีการหรือเทคโนโลยีมีความเหมาะสม<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     เป็นวิธีการหรือเทคโรโลยีที่ใช้ทันสมัย และเป็นปัจจุบัน
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     วิธีการหรือเทคโนโลยีมีความเหมาะสม แต่มีความยุ่งยากหรือซับซ้อนเกินไป<br />
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     วิธีการไม่มีความทันสมัยและเป็นปัจจุบัน
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     วิธีการหรือเทคโนโลยี<u>ไม่</u>เหมาะสมกับปัญหา
                 </div>
             ),
@@ -477,55 +281,29 @@ export default function InputScoreCSB01() {
         {
             detail1: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     ขอบเขตและปริมาณงานมีความเหมาะสมสำหรับปริญญานิพนธ์ในสาขาวิชาวิทยาการคอมพิวเตอร์
                 </div>
             ),
             detail2: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
-                    ขอบเขตและปริมาณงานมีน้อย หรืออาจไม่เหมาะสมกับปริญญานิพนธ์ในสาขาวิชาวิทยาการคอมพิวเตอร์
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
+                    ขอบเขตและปริมาณงานมีน้อย หรืออาจไม่เหมาะสมกับปริญญานิพนธ์ในสาขาวิทยาการคอมพิวเตอร์
                 </div>
             ),
             detail3: (
                 <div>
-                    <span style={{
-                        display: 'inline-block',
-                        width: '5px',
-                        height: '5px',
-                        borderRadius: '50%',
-                        backgroundColor: 'black',
-                        marginRight: '5px',
-                        marginBottom: '3px'
-                    }}></span>
+                    <span style={{ display: 'inline-block', width: '5px', height: '5px', borderRadius: '50%', backgroundColor: 'black', marginRight: '5px', marginBottom: '3px' }}></span>
                     ขอบเขตและปริมาณงานมีน้อย และ<u>ไม่</u>เหมาะสมกับปริญญานิพนธ์ในสาขาวิชาวิทยาการคอมพิวเตอร์
                 </div>
             ),
         },
     ];
 
-    // State สำหรับจัดเก็บคะแนนที่ผู้ใช้กรอก
     const [scores, setScores] = useState({});
-    const [totalScore, setTotalScore] = useState(0); // State สำหรับคะแนนรวม
-    const [comment, setComment] = useState(""); // State สำหรับคอมเมนต์
+    const [totalScore, setTotalScore] = useState(0);
+    const [comment, setComment] = useState("");
 
-    // ฟังก์ชันที่ทำงานเมื่อผู้ใช้กรอกคะแนน
     const handleScoreChange = (value, key) => {
         setScores((prevScores) => ({
             ...prevScores,
@@ -533,29 +311,25 @@ export default function InputScoreCSB01() {
         }));
     };
 
-    // คำนวณคะแนนรวมทุกครั้งที่มีการเปลี่ยนแปลงคะแนน
     useEffect(() => {
         const total = criteriaData.reduce((sum, item) => {
             return sum + (scores[item.key] || 0);
         }, 0);
-        setTotalScore(total); // อัปเดตคะแนนรวม
+        setTotalScore(total);
     }, [scores]);
 
-    // ฟังก์ชันที่ทำงานเมื่อฟอร์มถูกส่ง
+
     const onSubmit = () => {
-        // เก็บเฉพาะ totalScore และ comment
         const result = {
             totalScore,
             comment,
         };
-        console.log("Result submitted: ", result); // แสดงผลใน console
-
-        // เคลียร์คะแนนและคอมเมนต์
+        console.log("Result submitted: ", result);
         setScores({});
         setComment("");
     };
 
-    // คอลัมน์ของตาราง
+
     const columns = [
         {
             title: "เกณฑ์พิจารณา",
@@ -572,7 +346,7 @@ export default function InputScoreCSB01() {
             key: "score",
             render: (text, record) => (
                 record.key === "total" ? (
-                    <strong>{totalScore}</strong> // แสดงคะแนนรวมในแถวที่ 5
+                    <strong>{totalScore}</strong>
                 ) : (
                     <InputNumber
                         min={0}
@@ -583,7 +357,6 @@ export default function InputScoreCSB01() {
                 )
             ),
         },
-        // คอลัมน์ใหญ่ที่มีคอลัมน์ย่อย
         {
             title: "เกณฑ์คะแนน",
             children: [
@@ -609,20 +382,17 @@ export default function InputScoreCSB01() {
         },
     ];
 
-    // ข้อมูลสำหรับแถวคะแนนรวม (แถวที่ 5)
     const totalScoreRow = {
         key: "total",
         criteria: <strong>คะแนนรวม</strong>,
-        maxScore: criteriaData.reduce((total, item) => total + item.maxScore, 0), // รวมคะแนนเต็ม
-        score: totalScore,  // แสดงผลคะแนนรวมที่คำนวณได้
+        maxScore: criteriaData.reduce((total, item) => total + item.maxScore, 0),
+        score: totalScore,
     };
 
-    // รวมแถวคะแนนรวมกับข้อมูลเกณฑ์พิจารณา
     const tableData = [...criteriaData, totalScoreRow];
 
     return (
         <div style={{ padding: "20px" }}>
-            {/* ส่วนที่ 1: แสดงข้อมูลนักศึกษาและโครงงาน */}
             <Card title="ข้อมูลนักศึกษาและโครงงาน" style={{ marginBottom: "20px" }}>
                 <p><strong>ชื่อโครงงาน : </strong> {studentInfo.projectName}</p>
                 {studentInfo.students.map((student, index) => (
@@ -631,7 +401,6 @@ export default function InputScoreCSB01() {
                 <p><strong>อาจารย์ที่ปรึกษา : </strong> {studentInfo.TprojectName}</p>
             </Card>
 
-            {/* ส่วนที่ 2: ฟอร์มกรอกคะแนน */}
             <Card title="ฟอร์มกรอกคะแนน">
                 <Form onFinish={onSubmit}>
                     <Table
@@ -641,7 +410,6 @@ export default function InputScoreCSB01() {
                         bordered
                     />
 
-                    {/* แถวสำหรับคอมเมนต์ */}
                     <Form.Item label="ความคิดเห็นจากอาจารย์" style={{ marginTop: "20px" }}>
                         <TextArea
                             rows={4}
@@ -651,7 +419,6 @@ export default function InputScoreCSB01() {
                         />
                     </Form.Item>
 
-                    {/* ปุ่มสำหรับส่งคะแนน */}
                     <Form.Item style={{ marginTop: "20px" }}>
                         <Button type="primary" htmlType="submit">
                             ส่งคะแนน
@@ -662,3 +429,4 @@ export default function InputScoreCSB01() {
         </div>
     );
 }
+
