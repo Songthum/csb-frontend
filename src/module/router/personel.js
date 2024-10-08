@@ -3,6 +3,8 @@ import SideBar from '../component/sidebar';
 import InputScoreCSB01 from '../page/teacher/input-score/inputscore-csb01';
 import InputScoreCSB02 from '../page/teacher/input-score/inputscore-csb02';
 import InputScoreCSB04 from '../page/teacher/input-score/inputscore-csb04';
+import DataTable from '../page/teacher/request-lecture';
+import ChairmanScoreCSB01 from '../page/teacher/chairman-score/chairman-score-csb01';
 
 export default function Teacher(){
 
@@ -50,6 +52,30 @@ export default function Teacher(){
               pageName={"ประเมินป้องกัน"}
               pageSub={""}
               path={"/input-score/inputscore-csb04"}
+              rolePage={"personel"}
+            />
+          ),
+        },
+        {
+          path: "/request-lecture",
+          element: (
+            <SideBar 
+              page={ <DataTable/>}
+              pageName={"คำร้องขอเป็นที่ปรึกษา"}
+              pageSub={""}
+              path={"/request-lecture"}
+              rolePage={"personel"}
+            />
+          ),
+        },
+        {
+          path: "/chairman-score/chairman-score-csb01",
+          element: (
+            <SideBar 
+              page={ <ChairmanScoreCSB01/>}
+              pageName={"อนุมัติโดยประธานกรรมการสอบ"}
+              pageSub={""}
+              path={"/chairman-score/chairman-score-csb01"}
               rolePage={"personel"}
             />
           ),

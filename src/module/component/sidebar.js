@@ -99,6 +99,16 @@ const menuItemsTeacher = [
       },
     ]
   },
+  {
+    key: "/request-lecture",
+    icon: React.createElement(LaptopOutlined),
+    label: "คำร้องขอเป็นที่ปรึกษา",
+  },
+  {
+    key: "/chairman-score/chairman-score-csb01",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติโดยประธานกรรมการสอบ",
+  },
 ];
 
 const SiderBar = ({ page, pageName, pageSub, path, rolePage }) => {
