@@ -94,7 +94,7 @@ const menuItemsTeacher = [
         label: "ประเมินก้าวหน้า",
       },
       {
-        key: "input-score/inputscore-csb04",
+        key: "/input-score/inputscore-csb04",
         label: "ประเมินป้องกัน", 
       },
     ]
@@ -105,9 +105,39 @@ const menuItemsTeacher = [
     label: "คำร้องขอเป็นที่ปรึกษา",
   },
   {
+    key: "/approve-csb03",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติการยื่นทดสอบโครงงาน",
+  },
+  {
     key: "/chairman-score/chairman-score-csb01",
     icon: React.createElement(LaptopOutlined),
-    label: "อนุมัติโดยประธานกรรมการสอบ",
+    label: "อนุมัติคะแนนสอบหัวข้อโดยประธานกรรมการสอบ",
+  },
+  {
+    key: "/chairman-score/chairman-score-csb02",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติคะแนนสอบก้าวหน้าโดยประธานกรรมการสอบ",
+  },
+  {
+    key: "/chairman-score/chairman-score-csb04",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติคะแนนสอบป้องกันโดยประธานกรรมการสอบ",
+  },
+  {
+    key: "/department-score/department-score-csb01",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติคะแนนสอบหัวข้อหน้าโดยหัวหน้าภาควิชา",
+  },
+  {
+    key: "/department-score/department-score-csb02",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติคะแนนสอบก้าวหน้าโดยหัวหน้าภาควิชา",
+  },
+  {
+    key: "/department-score/department-score-csb04",
+    icon: React.createElement(LaptopOutlined),
+    label: "อนุมัติคะแนนสอบป้องกันโดยหัวหน้าภาควิชา",
   },
 ];
 

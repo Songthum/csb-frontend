@@ -1,172 +1,193 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, Button, Table, Row, Col, Typography, message } from 'antd';
+import { Select, Input, Button, Table, Form, Row, Col } from 'antd';
 
-const { Title } = Typography;
-const { Option } = Select;
+function ChairmanScoreCSB01() {
+  const [projects, setProjects] = useState([]);
+  const [approvedProjects, setApprovedProjects] = useState(new Set()); // State to track approved projects
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [data, setData] = useState([{ id: 1, name: 'คะแนนรวม', fullscores: '80', score: '' }]);
+  const [projectDetails, setProjectDetails] = useState(null);
 
-const ChairmanScoreCSB01 = () => {
-    const [projects] = useState([
-        { id: 1, Er_Pname: 'โครงงาน A', P_S1: 'นักศึกษาคนที่ 1A', P_S2: 'นักศึกษาคนที่ 2A', P_T: 'อาจารย์ที่ปรึกษา A' },
-        { id: 2, Er_Pname: 'โครงงาน B', P_S1: 'นักศึกษาคนที่ 1B', P_S2: 'นักศึกษาคนที่ 2B', P_T: 'อาจารย์ที่ปรึกษา B' },
-    ]);
-    
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [projectDetails, setProjectDetails] = useState(null);
-    const [data, setData] = useState([{ id: 1, name: 'คะแนนรวม', fullscores: '90', score: '' }]);
-    const [editingRowId, setEditingRowId] = useState(null);
+  // Mocked projects data
+  const mockProjects = [
+    { Er_Pname: 'Project A', Er_CSB03: '75', Er_CSB03_status: 'ไม่ผ่าน' },
+    { Er_Pname: 'Project B', Er_CSB03: '80', Er_CSB03_status: 'ไม่ผ่าน' },
+  ];
 
-    useEffect(() => {
-        if (selectedProject) {
-            const projectDetail = projects.find(p => p.Er_Pname === selectedProject);
-            setProjectDetails(projectDetail);
-            setData([{ id: 1, name: 'คะแนนรวม', fullscores: '90', score: '' }]);
-        }
-    }, [selectedProject, projects]);
+  // Mocked project details data
+  const mockProjectDetails = {
+    'Project A': { P_S1: 'Student 1A', P_S2: 'Student 2A', P_T: 'Advisor A' },
+    'Project B': { P_S1: 'Student 1B', P_S2: 'Student 2B', P_T: 'Advisor B' },
+  };
 
-    const handleChange = (value) => {
-        setSelectedProject(value);
-    };
+  // Fetching mocked project data
+  useEffect(() => {
+    setProjects(mockProjects);
+  }, []);
 
-    const handleNameChange = (value) => {
-        if (/^\d*$/.test(value) && Number(value) <= Number(data[0].fullscores)) {
-            setData(prevData => prevData.map(item =>
-                item.id === 1 ? { ...item, score: value } : item
-            ));
-        }
-    };
+  // Function to handle project selection
+  const handleProjectChange = (value) => {
+    const selected = projects.find((p) => p.Er_Pname === value);
+    setSelectedProject(selected);
+    setProjectDetails(mockProjectDetails[value]);
 
-    const handleEditClick = () => {
-        setEditingRowId(1);
-    };
+    // Update score data based on the selected project
+    setData([{ id: 1, name: 'คะแนนรวม', fullscores: '80', score: selected.Er_CSB03 }]);
+  };
 
-    const handleSaveClick = () => {
-        setEditingRowId(null);
-        message.success('บันทึกคะแนนสำเร็จ!');
-    };
+  const handleScoreChange = (e) => {
+    const newScore = e.target.value;
+    setData((prevData) => prevData.map((item) => ({ ...item, score: newScore })));
+  };
 
-    const handleSubmit = () => {
-        if (!selectedProject) {
-            message.error("กรุณาเลือกชื่อโครงงานก่อน");
-            return;
-        }
-        message.success('บันทึกข้อมูลสำเร็จ!');
-    };
+  // Function to reset form
+  const resetForm = () => {
+    setSelectedProject(null);
+    setProjectDetails(null);
+    setData([{ id: 1, name: 'คะแนนรวม', fullscores: '80', score: '' }]);
+  };
 
-    return (
-        <div style={{ padding: 20 }}>
-            <Row gutter={[16, 16]}>
-                <Col span={24}>
-                    <Title level={2}>แบบประเมินโครงงานพิเศษ (สอบหัวข้อ)</Title>
-                </Col>
+  const handleSubmit = () => {
+    if (!selectedProject) {
+      alert('กรุณาเลือกชื่อโครงงานก่อน');
+      return;
+    }
 
-                <Col span={24}>
-                    <Form layout="vertical">
-                        <Form.Item label="เลือกชื่อโครงงาน">
-                            <Select
-                                value={selectedProject}
-                                onChange={handleChange}
-                                placeholder="เลือกโครงงาน"
-                                style={{ width: '100%' }}
-                            >
-                                {projects.map((project) => (
-                                    <Option key={project.id} value={project.Er_Pname}>
-                                        {project.Er_Pname}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
+    const updatedData = data.find((item) => item.name === 'คะแนนรวม')?.score || '';
+    if (!updatedData) {
+      alert('กรุณากรอกคะแนนให้ครบถ้วน');
+      return;
+    }
 
-                        {projectDetails && (
-                            <>
-                                <Form.Item label="โดย">
-                                    <Row gutter={[16, 16]}>
-                                        <Col span={12}>
-                                            <Input
-                                                value={projectDetails.P_S1}
-                                                disabled
-                                                placeholder="ชื่อ-สกุลนักศึกษาคนที่ 1"
-                                            />
-                                        </Col>
-                                        <Col span={12}>
-                                            <Input
-                                                value={projectDetails.P_S2}
-                                                disabled
-                                                placeholder="ชื่อ-สกุลนักศึกษาคนที่ 2"
-                                            />
-                                        </Col>
-                                    </Row>
-                                </Form.Item>
+    // Mock update process
+    alert(`อัปเดตข้อมูลสำเร็จ! คะแนนที่ได้: ${updatedData}, โครงงาน: ${selectedProject.Er_Pname}`);
 
-                                <Form.Item label="อาจารย์ที่ปรึกษา">
-                                    <Input
-                                        value={projectDetails.P_T}
-                                        disabled
-                                        placeholder="ชื่ออาจารย์ที่ปรึกษา"
-                                    />
-                                </Form.Item>
-                            </>
-                        )}
+    // Add project to approved projects
+    setApprovedProjects((prev) => new Set(prev).add(selectedProject.Er_Pname));
 
-                        {selectedProject && (
-                            <>
-                                <Title level={4}>ตารางคะแนนสำหรับประธานกรรมการสอบ</Title>
-                                <Table
-                                    dataSource={data}
-                                    pagination={false}
-                                    rowKey="id"
-                                >
-                                    <Table.Column title="คะแนนเต็ม" dataIndex="fullscores" key="fullscores" />
-                                    <Table.Column
-                                        title="คะแนนได้"
-                                        key="score"
-                                        render={(text, record) =>
-                                            editingRowId === record.id ? (
-                                                <Input
-                                                    value={record.score}
-                                                    onChange={(e) => handleNameChange(e.target.value)}
-                                                    inputMode="numeric"
-                                                />
-                                            ) : (
-                                                record.score
-                                            )
-                                        }
-                                    />
-                                    <Table.Column
-                                        title="แก้ไข"
-                                        key="action"
-                                        render={(text, record) =>
-                                            editingRowId === record.id ? (
-                                                <Button type="primary" onClick={handleSaveClick}>
-                                                    บันทึก
-                                                </Button>
-                                            ) : (
-                                                <Button type="primary" onClick={handleEditClick}>
-                                                    แก้ไข
-                                                </Button>
-                                            )
-                                        }
-                                    />
-                                </Table>
-                            </>
-                        )}
+    // Clear the form after submission
+    resetForm();
+  };
 
-                        <Row justify="start" gutter={[16, 16]} style={{ marginTop: 20 }}>
-                            <Col>
-                                <Button type="primary" onClick={handleSubmit}>
-                                    บันทึก
-                                </Button>
-                            </Col>
-                            <Col>
-                                <Button onClick={() => setSelectedProject(null)}>
-                                    ยกเลิก
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Form>
-                </Col>
+  const handleCancel = () => {
+    // Clear the form when cancel is clicked
+    resetForm();
+  };
+
+  // Filter out approved projects from the project list
+  const filteredProjects = projects.filter((project) => !approvedProjects.has(project.Er_Pname));
+
+  // Table columns definition
+  const columns = [
+    {
+      title: 'คะแนนเต็ม',
+      dataIndex: 'fullscores',
+      key: 'fullscores',
+      render: (text) => <span>{text}</span>,
+    },
+    {
+      title: 'คะแนนได้',
+      dataIndex: 'score',
+      key: 'score',
+      render: (_, record) => (
+        <Input
+          value={record.score}
+          onChange={handleScoreChange}
+          style={{ width: '80px', border: '1px solid #d9d9d9', borderRadius: '4px' }}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <div style={{ padding: '24px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>แบบประเมินโครงงานพิเศษ 1 (สอบหัวข้อ)</h1>
+
+      <Form layout="vertical">
+        <Row gutter={16}>
+          <Col span={12}>
+            <Form.Item label="เลือกชื่อโครงงาน">
+              <Select
+                value={selectedProject?.Er_Pname || ''}
+                onChange={handleProjectChange}
+                placeholder="เลือกโครงงาน"
+                style={{
+                  width: '100%',
+                  border: '1px solid #d9d9d9',
+                  borderRadius: '4px',
+                }}
+              >
+                {filteredProjects.map((project) => (
+                  <Select.Option key={project.Er_Pname} value={project.Er_Pname}>
+                    {project.Er_Pname}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+          </Col>
+        </Row>
+
+        {projectDetails && (
+          <>
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item label="ชื่อ-สกุลนักศึกษาคนที่ 1">
+                  <Input value={projectDetails.P_S1} disabled style={{ width: '100%', borderRadius: '4px' }} />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item label="ชื่อ-สกุลนักศึกษาคนที่ 2">
+                  <Input value={projectDetails.P_S2} disabled style={{ width: '100%', borderRadius: '4px' }} />
+                </Form.Item>
+              </Col>
             </Row>
-        </div>
-    );
-};
+            <Row gutter={16}>
+              <Col span={24}>
+                <Form.Item label="ชื่ออาจารย์ที่ปรึกษา">
+                  <Input value={projectDetails.P_T} disabled style={{ width: '100%', borderRadius: '4px' }} />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <h2>ตารางคะแนนสำหรับประธานกรรมการสอบ</h2>
+            <Table
+              dataSource={data}
+              columns={columns}
+              pagination={false}
+              rowKey="id"
+              bordered
+              style={{ marginTop: '16px' }}
+            />
+
+            <Row gutter={16} style={{ marginTop: '16px' }}>
+              <Col>
+                <Button
+                  type="primary"
+                  onClick={handleSubmit}
+                  style={{ backgroundColor: '#1890ff', border: 'none', borderRadius: '4px', padding: '6px 16px' }}
+                >
+                  อนุมัติคะแนน
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  onClick={handleCancel}
+                  style={{
+                    backgroundColor: '#f5f5f5',
+                    border: '1px solid #d9d9d9',
+                    borderRadius: '4px',
+                    padding: '6px 16px',
+                  }}
+                >
+                  ยกเลิก
+                </Button>
+              </Col>
+            </Row>
+          </>
+        )}
+      </Form>
+    </div>
+  );
+}
 
 export default ChairmanScoreCSB01;
