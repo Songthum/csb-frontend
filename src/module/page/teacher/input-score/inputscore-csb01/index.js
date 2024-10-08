@@ -4,7 +4,7 @@ import { Button, Table, Input, Modal, Typography, Select, Card, InputNumber, For
 const { TextArea } = Input;
 
 function InputScoreCSB01() {
-    // ข้อมูลโครงงานและนักศึกษา
+
     const mockProjects = [
         {
             P_id: 1,
@@ -56,7 +56,6 @@ function InputScoreCSB01() {
         },
     ];
 
-    // เกณฑ์พิจารณาและคะแนนเต็ม
     const criteriaData = [
         { key: "1", criteria: "การแนะนำสมาชิกและการแนะนำระบบที่จะพัฒนา", maxScore: 3 },
         { key: "2", criteria: "พิจารณาถึงเนื้อหาในสไลด์และวิธีนำเสนองาน", maxScore: 3 },
@@ -346,7 +345,6 @@ function InputScoreCSB01() {
         },
     ];
 
-    // State สำหรับจัดเก็บคะแนนที่ผู้ใช้กรอก
     const [scores, setScores] = useState({});
     const [totalScore, setTotalScore] = useState(0);
     const [comment, setComment] = useState("");
@@ -431,7 +429,7 @@ function InputScoreCSB01() {
             key: "score",
             render: (text, record) => (
                 record.key === "total" ? (
-                    <strong>{totalScore}</strong> // แสดงคะแนนรวมในแถวที่ 5
+                    <strong>{totalScore}</strong> 
                 ) : (
                     <InputNumber
                         min={0}
@@ -480,17 +478,17 @@ function InputScoreCSB01() {
         return filteredProjects.some(project => evaluatedRows[project.P_id] === 'evaluated');
     };
 
-    // ฟังก์ชันเพื่อตรวจสอบว่ามีคะแนนที่กรอกครบหรือไม่
     const isScoreComplete = () => {
         return criteriaData.every(item => scores[item.key] !== undefined && scores[item.key] !== null);
     };
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ width: '60%', textAlign: 'center' }}>
             <Typography.Title level={2}>ประเมินการโครงงานพิเศษ 1 (สอบหัวข้อ)</Typography.Title>
             <Typography.Text>เลือกวันที่ที่จะทำการประเมิน:</Typography.Text>
             <Select
-                style={{ width: 200 }}
+                                style={{ width: '100%' }} 
                 placeholder="เลือกวันที่"
                 onChange={handleDateChange}
                 options={availableDates.map(date => ({ value: date, label: date }))}
@@ -513,7 +511,7 @@ function InputScoreCSB01() {
                     </Button>
                     <Table
                         dataSource={filteredProjects}
-                        columns={[ // แสดงข้อมูลในตาราง
+                        columns={[
                             {
                                 title: 'ลำดับที่',
                                 dataIndex: 'P_id',
@@ -613,7 +611,7 @@ function InputScoreCSB01() {
                             <Button
                                 type="primary"
                                 htmlType="submit"
-                                disabled={!isScoreComplete()} // ปิดใช้งานปุ่มถ้ามีคะแนนที่กรอกไม่ครบ
+                                disabled={!isScoreComplete()} 
                             >
                                 ส่งคะแนน
                             </Button>
@@ -621,6 +619,7 @@ function InputScoreCSB01() {
                     </Form>
                 </Card>
             </Modal>
+        </div>
         </div>
     );
 }

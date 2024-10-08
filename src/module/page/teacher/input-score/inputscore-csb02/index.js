@@ -4,7 +4,7 @@ import { Button, Table, Input, Modal, Typography, Select, Card, InputNumber, For
 const { TextArea } = Input;
 
 function InputScoreCSB02() {
-    // ข้อมูลโครงงานและนักศึกษา
+
     const mockProjects = [
         {
             P_id: 1,
@@ -56,7 +56,6 @@ function InputScoreCSB02() {
         },
     ];
 
-    // เกณฑ์พิจารณาและคะแนนเต็ม
     const criteriaData = [
         { key: "1", criteria: "วัตถุประสงค์และขอบเขตโครงงาน", maxScore: 10 },
         { key: "2", criteria: "ความเข้าใจระบบงานเดิม/ทฤษฎีหรืองานวิจัย ที่นำมาใช้พัฒนาโครงงาน", maxScore: 20 },
@@ -66,7 +65,6 @@ function InputScoreCSB02() {
         { key: "6", criteria: "แนวทางการดำเนินงาน", maxScore: 10 },
     ];
 
-    // State สำหรับจัดเก็บคะแนนที่ผู้ใช้กรอก
     const [scores, setScores] = useState({});
     const [totalScore, setTotalScore] = useState(0);
     const [comment, setComment] = useState("");
@@ -151,7 +149,7 @@ function InputScoreCSB02() {
             key: "score",
             render: (text, record) => (
                 record.key === "total" ? (
-                    <strong>{totalScore}</strong> // แสดงคะแนนรวมในแถวที่ 5
+                    <strong>{totalScore}</strong> 
                 ) : (
                     <InputNumber
                         min={0}
@@ -177,147 +175,148 @@ function InputScoreCSB02() {
         return filteredProjects.some(project => evaluatedRows[project.P_id] === 'evaluated');
     };
 
-    // ฟังก์ชันเพื่อตรวจสอบว่ามีคะแนนที่กรอกครบหรือไม่
     const isScoreComplete = () => {
         return criteriaData.every(item => scores[item.key] !== undefined && scores[item.key] !== null);
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Typography.Title level={2}>ประเมินการโครงงานพิเศษ 1 (สอบก้าวหน้า)</Typography.Title>
-            <Typography.Text>เลือกวันที่ที่จะทำการประเมิน:</Typography.Text>
-            <Select
-                style={{ width: 200 }}
-                placeholder="เลือกวันที่"
-                onChange={handleDateChange}
-                options={availableDates.map(date => ({ value: date, label: date }))}
-            />
-            <div style={{ marginTop: 20 }} />
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ width: '60%', textAlign: 'center' }}>
+                <Typography.Title level={2}>ประเมินการโครงงานพิเศษ 1 (สอบก้าวหน้า)</Typography.Title>
+                <Typography.Text>เลือกวันที่ที่จะทำการประเมิน:</Typography.Text>
+                <Select
+                    style={{ width: '100%' }} 
+                    placeholder="เลือกวันที่"
+                    onChange={handleDateChange}
+                    options={availableDates.map(date => ({ value: date, label: date }))}
+                />
+                <div style={{ marginTop: 20 }} />
 
-            {selectedDate && filteredProjects.length > 0 ? (
-                <div>
-                    <Button
-                        onClick={() => filteredProjects.forEach(project => handleDisableEvaluation(project.P_id))}
-                        style={{
-                            backgroundColor: hasEvaluatedProjects() ? 'gray' : 'red',
-                            borderColor: hasEvaluatedProjects() ? 'gray' : 'red',
-                            color: 'white',
-                            marginBottom: '10px',
-                        }}
-                        disabled={hasEvaluatedProjects()}
-                    >
-                        ไม่ประเมินทั้งหมด
-                    </Button>
-                    <Table
-                        dataSource={filteredProjects}
-                        columns={[ // แสดงข้อมูลในตาราง
-                            {
-                                title: 'ลำดับที่',
-                                dataIndex: 'P_id',
-                                key: 'P_id',
-                            },
-                            {
-                                title: 'ชื่อโครงงาน',
-                                dataIndex: 'P_name',
-                                key: 'P_name',
-                            },
-                            {
-                                title: 'ประเมิน',
-                                key: 'evaluate',
-                                render: (_, record) => {
-                                    const evaluationStatus = evaluatedRows[record.P_id];
-
-                                    if (evaluationStatus === 'evaluated') {
-                                        return <span style={{ color: 'green' }}>ประเมินสำเร็จ</span>;
-                                    }
-
-                                    if (evaluationStatus === 'notEvaluated') {
-                                        return <span style={{ color: 'red' }}>ไม่ประเมิน</span>;
-                                    }
-
-                                    return (
-                                        <>
-                                            <Button
-                                                onClick={() => handleLinkClick(filteredProjects.indexOf(record))}
-                                                type="primary"
-                                            >
-                                                ประเมิน
-                                            </Button>
-                                            <Button
-                                                onClick={() => handleDisableEvaluation(record.P_id)}
-                                                style={{ marginLeft: 8, backgroundColor: 'red', borderColor: 'red', color: 'white' }}
-                                            >
-                                                ไม่ประเมิน
-                                            </Button>
-                                        </>
-                                    );
-                                },
-                            },
-                        ]}
-                        pagination={false}
-                        bordered
-                    />
-                </div>
-            ) : (
-                <Typography.Text>
-                    {selectedDate ? null : 'กรุณาเลือกวันที่เพื่อแสดงโครงงานที่สามารถประเมินได้ !!'}
-                </Typography.Text>
-            )}
-
-            <Modal
-                title="กรอกคะแนน"
-                visible={modalVisible}
-                onCancel={handleClose}
-                footer={null}
-                width={1000}
-            >
-                <Card title="ข้อมูลนักศึกษาและโครงงาน">
-                    <p><strong>ชื่อโครงงาน : </strong> {selectedProject?.P_name}</p>
-                    <p><strong>นักศึกษาคนที่ 1 : </strong> {selectedProject?.P_S1} </p>
-                    <p><strong>นักศึกษาคนที่ 2 : </strong> {selectedProject?.P_S2} </p>
-                    <p><strong>อาจารย์ที่ปรึกษา : </strong> {selectedProject?.P_T}</p>
-                </Card>
-
-                <Card title="ฟอร์มกรอกคะแนน">
-                    <Form onFinish={onSubmit}>
+                {selectedDate && filteredProjects.length > 0 ? (
+                    <div>
+                        <Button
+                            onClick={() => filteredProjects.forEach(project => handleDisableEvaluation(project.P_id))}
+                            style={{
+                                backgroundColor: hasEvaluatedProjects() ? 'gray' : 'red',
+                                borderColor: hasEvaluatedProjects() ? 'gray' : 'red',
+                                color: 'white',
+                                marginBottom: '10px',
+                            }}
+                            disabled={hasEvaluatedProjects()}
+                        >
+                            ไม่ประเมินทั้งหมด
+                        </Button>
                         <Table
-                            dataSource={tableData.map((data) => ({
-                                ...data,
-                                backgroundColor: successfulEvaluations.has(selectedProject?.P_id) ? 'green' : 'transparent',
-                            }))}
-                            columns={columns.map((col) => ({
-                                ...col,
-                                onCell: (record) => ({
-                                    style: {
-                                        backgroundColor: successfulEvaluations.has(selectedProject?.P_id) && col.key === 'score' ? 'green' : 'transparent',
+                            dataSource={filteredProjects}
+                            columns={[ // แสดงข้อมูลในตาราง
+                                {
+                                    title: 'ลำดับที่',
+                                    dataIndex: 'P_id',
+                                    key: 'P_id',
+                                },
+                                {
+                                    title: 'ชื่อโครงงาน',
+                                    dataIndex: 'P_name',
+                                    key: 'P_name',
+                                },
+                                {
+                                    title: 'ประเมิน',
+                                    key: 'evaluate',
+                                    render: (_, record) => {
+                                        const evaluationStatus = evaluatedRows[record.P_id];
+
+                                        if (evaluationStatus === 'evaluated') {
+                                            return <span style={{ color: 'green' }}>ประเมินสำเร็จ</span>;
+                                        }
+
+                                        if (evaluationStatus === 'notEvaluated') {
+                                            return <span style={{ color: 'red' }}>ไม่ประเมิน</span>;
+                                        }
+
+                                        return (
+                                            <>
+                                                <Button
+                                                    onClick={() => handleLinkClick(filteredProjects.indexOf(record))}
+                                                    type="primary"
+                                                >
+                                                    ประเมิน
+                                                </Button>
+                                                <Button
+                                                    onClick={() => handleDisableEvaluation(record.P_id)}
+                                                    style={{ marginLeft: 8, backgroundColor: 'red', borderColor: 'red', color: 'white' }}
+                                                >
+                                                    ไม่ประเมิน
+                                                </Button>
+                                            </>
+                                        );
                                     },
-                                }),
-                            }))}
+                                },
+                            ]}
                             pagination={false}
                             bordered
                         />
+                    </div>
+                ) : (
+                    <Typography.Text>
+                        {selectedDate ? null : 'กรุณาเลือกวันที่เพื่อแสดงโครงงานที่สามารถประเมินได้ !!'}
+                    </Typography.Text>
+                )}
 
-                        <Form.Item label="ความคิดเห็นจากอาจารย์" style={{ marginTop: "20px" }}>
-                            <TextArea
-                                rows={4}
-                                value={comment}
-                                onChange={(e) => setComment(e.target.value)}
-                                placeholder="กรุณากรอกความคิดเห็น"
+                <Modal
+                    title="กรอกคะแนน"
+                    visible={modalVisible}
+                    onCancel={handleClose}
+                    footer={null}
+                    width={1000}
+                >
+                    <Card title="ข้อมูลนักศึกษาและโครงงาน">
+                        <p><strong>ชื่อโครงงาน : </strong> {selectedProject?.P_name}</p>
+                        <p><strong>นักศึกษาคนที่ 1 : </strong> {selectedProject?.P_S1} </p>
+                        <p><strong>นักศึกษาคนที่ 2 : </strong> {selectedProject?.P_S2} </p>
+                        <p><strong>อาจารย์ที่ปรึกษา : </strong> {selectedProject?.P_T}</p>
+                    </Card>
+
+                    <Card title="ฟอร์มกรอกคะแนน">
+                        <Form onFinish={onSubmit}>
+                            <Table
+                                dataSource={tableData.map((data) => ({
+                                    ...data,
+                                    backgroundColor: successfulEvaluations.has(selectedProject?.P_id) ? 'green' : 'transparent',
+                                }))}
+                                columns={columns.map((col) => ({
+                                    ...col,
+                                    onCell: (record) => ({
+                                        style: {
+                                            backgroundColor: successfulEvaluations.has(selectedProject?.P_id) && col.key === 'score' ? 'green' : 'transparent',
+                                        },
+                                    }),
+                                }))}
+                                pagination={false}
+                                bordered
                             />
-                        </Form.Item>
 
-                        <Form.Item style={{ marginTop: "20px", textAlign: 'center' }}>
-                            <Button
-                                type="primary"
-                                htmlType="submit"
-                                disabled={!isScoreComplete()} // ปิดใช้งานปุ่มถ้ามีคะแนนที่กรอกไม่ครบ
-                            >
-                                ส่งคะแนน
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                </Card>
-            </Modal>
+                            <Form.Item label="ความคิดเห็นจากอาจารย์" style={{ marginTop: "20px" }}>
+                                <TextArea
+                                    rows={4}
+                                    value={comment}
+                                    onChange={(e) => setComment(e.target.value)}
+                                    placeholder="กรุณากรอกความคิดเห็น"
+                                />
+                            </Form.Item>
+
+                            <Form.Item style={{ marginTop: "20px", textAlign: 'center' }}>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    disabled={!isScoreComplete()} // ปิดใช้งานปุ่มถ้ามีคะแนนที่กรอกไม่ครบ
+                                >
+                                    ส่งคะแนน
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                    </Card>
+                </Modal>
+            </div>
         </div>
     );
 }
