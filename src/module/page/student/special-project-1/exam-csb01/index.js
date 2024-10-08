@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Checkbox, Button, Typography, Row, Col } from "antd";
+import { Form, Input, Checkbox, Button, Typography, Row, Col, notification } from "antd";
 import cis from '../../../../public/image/cis.png';
 
 const { Title, Paragraph } = Typography;
@@ -9,6 +9,13 @@ export default function ExamCSB01() {
 
   const onFinish = (values) => {
     console.log("Form values: ", values);
+
+    // Trigger success notification
+    notification.success({
+      message: 'บันทึกสำเร็จ',
+      description: 'แบบฟอร์มของคุณได้ถูกบันทึกเรียบร้อยแล้ว!',
+      placement: 'topRight',
+    });
   };
 
   const handleCheckboxChange = (checkedValues) => {
@@ -96,7 +103,6 @@ export default function ExamCSB01() {
           </Checkbox.Group>
         </Form.Item>
 
-        {/* Conditional rendering for 'Other' project type input field */}
         {isOtherChecked && (
           <Form.Item
             label="กรุณาระบุประเภทโครงงานอื่นๆ"
