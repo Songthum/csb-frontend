@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Select, Input, Button, Form, Row, Col, message } from 'antd';
 
-function ProjectApproval() {
+export default function ApproveCSB03() {
   const [projects, setProjects] = useState([]);
   const [approvedProjects, setApprovedProjects] = useState(new Set());
   const [selectedProject, setSelectedProject] = useState(null);
@@ -117,4 +117,3 @@ function ProjectApproval() {
   );
 }
 
-export default ProjectApproval;

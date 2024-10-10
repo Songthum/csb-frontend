@@ -42,7 +42,7 @@ function App() {
         <img src={student} alt="student logo" style={{ width: '80%' }} />
         {/* <img src={teacher} alt="teacher logo" style={{ width: '80%'}} /> */}
       </div>
-      <Calendar onPanelChange={onPanelChange} />;
+      {/* <Calendar onPanelChange={onPanelChange} />; */}
     </>
   );
   

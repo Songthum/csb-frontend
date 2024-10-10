@@ -10,7 +10,8 @@ import ChairmanScoreCSB04 from '../page/teacher/chairman-score/chairman-score-cs
 import DepartmentHeadScoreCSB01 from '../page/teacher/department-score/department-score-csb01';
 import DepartmentHeadScoreCSB02 from '../page/teacher/department-score/department-score-csb02';
 import DepartmentHeadScoreCSB04 from '../page/teacher/department-score/department-score-csb04';
-import ProjectApproval from '../page/teacher/approve-csb03';
+import ApproveCSB03 from '../page/teacher/approve/approve-csb03';
+import ApproveCSB04 from '../page/teacher/approve/approve-csb04';
 
 export default function Teacher(){
 
@@ -31,8 +32,8 @@ export default function Teacher(){
           element: (
             <SideBar 
               page={ <InputScoreCSB01/>}
-              pageName={"ประเมินหัวข้อ"}
-              pageSub={""}
+              pageName={"ประเมินคะแนน"}
+              pageSub={"ประเมินหัวข้อ"}
               path={"/input-score/inputscore-csb01"}
               rolePage={"personel"}
             />
@@ -43,8 +44,8 @@ export default function Teacher(){
           element: (
             <SideBar 
               page={ <InputScoreCSB02/>}
-              pageName={"ประเมินก้าวหน้า"}
-              pageSub={""}
+              pageName={"ประเมินคะแนน"}
+              pageSub={"ประเมินก้าวหน้า"}
               path={"/input-score/inputscore-csb02"}
               rolePage={"personel"}
             />
@@ -55,21 +56,9 @@ export default function Teacher(){
           element: (
             <SideBar 
               page={ <InputScoreCSB04/>}
-              pageName={"ประเมินป้องกัน"}
-              pageSub={""}
+              pageName={"ประเมินคะแนน"}
+              pageSub={"ประเมินป้องกัน"}
               path={"/input-score/inputscore-csb04"}
-              rolePage={"personel"}
-            />
-          ),
-        },
-        {
-          path: "/request-lecture",
-          element: (
-            <SideBar 
-              page={ <DataTable/>}
-              pageName={"คำร้องขอเป็นที่ปรึกษา"}
-              pageSub={""}
-              path={"/request-lecture"}
               rolePage={"personel"}
             />
           ),
@@ -147,13 +136,25 @@ export default function Teacher(){
           ),
         },
         {
-          path: "/approve-csb03",
+          path: "/approve/approve-csb03",
           element: (
             <SideBar 
-              page={ <ProjectApproval/>}
-              pageName={"อนุมัติการยื่นทดสอบโครงงาน"}
-              pageSub={""}
-              path={"/approve-csb03"}
+              page={ <ApproveCSB03/>}
+              pageName={"อนุมัติการยื่นสอบ"}
+              pageSub={"อนุมัติการยื่นทดสอบโครงงาน"}
+              path={"/approve/approve-csb03"}
+              rolePage={"personel"}
+            />
+          ),
+        },
+        {
+          path: "/approve/approve-csb04",
+          element: (
+            <SideBar 
+              page={ <ApproveCSB04/>}
+              pageName={"อนุมัติการยื่นสอบ"}
+              pageSub={"อนุมัติการยื่นสอบป้องกันโครงงาน"}
+              path={"/approve/approve-csb04"}
               rolePage={"personel"}
             />
           ),

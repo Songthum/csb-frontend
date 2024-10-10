@@ -1,37 +1,65 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; 
 import { Typography, Upload, Button, message, Modal } from "antd";
 import cis from "../../../../public/image/cis.png";
+import axios from "axios";
 
 const { Title, Paragraph } = Typography;
 
 export default function ProjectEvaluation() {
-  const [file, setFile] = useState(null); // State to hold the uploaded file
-  const [previewVisible, setPreviewVisible] = useState(false); // State to control the preview modal
-  const [fileUrl, setFileUrl] = useState(""); // State to hold the file URL for preview
+  const [file, setFile] = useState(null); 
+  const [previewVisible, setPreviewVisible] = useState(false); 
+  const [fileUrl, setFileUrl] = useState(""); 
 
   const handleUpload = (uploadedFile) => {
-    setFile(uploadedFile); // Set the uploaded file to state
-    setFileUrl(URL.createObjectURL(uploadedFile)); // Create a URL for the file
-    return false; // Prevent automatic upload
+    setFile(uploadedFile); 
+    setFileUrl(URL.createObjectURL(uploadedFile)); 
+    return false; 
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!file) {
-      message.error("กรุณาอัปโหลดไฟล์ก่อนที่จะส่ง"); // Show an error message if no file is uploaded
+      message.error("กรุณาอัปโหลดไฟล์ก่อนที่จะส่ง");
       return;
     }
 
-    // Here you would handle the file upload logic, e.g., send it to the server
-    console.log("Submitting file: ", file);
-    message.success("ส่งไฟล์สำเร็จ!"); // Show success message
+    const formData = new FormData();
+    formData.append("files[]", file);
+    formData.append("std", "6304062636121"); // เพิ่ม studentId ที่ต้องการ
+    formData.append("stdName", "ทerdgjyhk"); // เพิ่ม studentName ที่ต้องการ
+
+    try {
+      const response = await fetch("http://localhost:9999/files", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        message.success("ส่งไฟล์สำเร็จ!");
+      } else {
+        message.error("การส่งไฟล์ล้มเหลว");
+      }
+      await handleFileUpload(6304062636121)
+
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      message.error("เกิดข้อผิดพลาดในการอัปโหลดไฟล์");
+    }
+  };
+
+  const handleFileUpload = async (fi_id) => {
+    try {
+      await axios.patch(`http://localhost:9999/files/${fi_id}`);
+    } catch (error) {
+      console.error("Error updating file status:", error);
+    }
   };
 
   const handlePreview = () => {
-    setPreviewVisible(true); // Show the preview modal
+    setPreviewVisible(true); 
   };
 
   const handleClosePreview = () => {
-    setPreviewVisible(false); // Close the preview modal
+    setPreviewVisible(false); 
   };
 
   return (
@@ -43,10 +71,9 @@ export default function ProjectEvaluation() {
       <Paragraph>
         1. นักศึกษาโครงการพิเศษสองภาษาต้องลงทะเบียนเรียนวิชา 040613141 Special Project I<br/>
         2. นักศึกษาโครงการพิเศษสองภาษาได้ผลการเรียนรวม ≥ 102 หน่วยกิต และได้ผลการเรียนรายวิชาภาคฯ 0406xxxxx ≥ 57 หน่วยกิต<br/>
-        3. โดยใช้ เอกสารใบรับรองผลการศึกษา (Transcript) หรือ บันทึกไฟล์ ผลการศึกษา จาก Reg Kmutnb<br/>
-        <div style={{ marginLeft: "20px" }}> {/* Indentation for 3.1 and 3.2 */}
-          3.1 เอกสารใบรับรองผลการศึกษา (Transcript) สามารถยื่นคำร้องได้ในระบบ Reg Kmutnb<br/>
-          3.2 ผลการศึกษา สามารถ Ctrl + p  และเลือก Printer เป็น Microsoft Print to PDF และบันทึกไฟล์ได้
+        3. โดยใช้ ผลการศึกษา จาก Reg Kmutnb<br/>
+        <div style={{ marginLeft: "20px" }}>
+          3.1 ผลการศึกษา สามารถ Ctrl + p  และเลือก Printer เป็น Microsoft Print to PDF และบันทึกไฟล์ได้
         </div>
       </Paragraph>
 
@@ -59,9 +86,6 @@ export default function ProjectEvaluation() {
           <Paragraph>
             <strong>ชื่อไฟล์ที่อัปโหลด: </strong> {file.name}
           </Paragraph>
-          {/* <Paragraph>
-            <strong>ขนาดไฟล์: </strong> {(file.size / 1024).toFixed(2)} KB
-          </Paragraph> */}
           <Button type="default" onClick={handlePreview} style={{ marginTop: 10 }}>
             ดูไฟล์
           </Button>
