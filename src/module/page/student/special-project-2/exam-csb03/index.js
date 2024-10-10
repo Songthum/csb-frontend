@@ -1,44 +1,69 @@
-import React, { useState } from "react";
-import { Form, Input, Button, Typography, DatePicker, Space, Row, Col, notification } from "antd";
+import React, { useState, useEffect } from "react";
+import { Form, Button, Typography, DatePicker, Space, Row, Col, notification } from "antd";
 import cis from '../../../../public/image/cis.png';
+import api from '../../../../utils/form/api';
 
 const { Title, Paragraph } = Typography;
-const { RangePicker } = DatePicker;
 
 export default function ExamCSB03() {
-  const [isSubmitDisabled, setSubmitDisabled] = useState(false); // Manage submit button state
-
-  const [data] = useState({
-    projectName: "ระบบจัดการข้อมูลโครงงาน",
-    student1: "John Doe",
-    student2: "Jane Smith",
-    lecturer: "Dr. Somsak J",
+  const [isSubmitDisabled, setSubmitDisabled] = useState(false);
+  const [data, setData] = useState({
+    projectName: "",
+    student: [],
+    lecturer: [],
   });
-
-  const onOk = (value) => {
-    console.log("onOk: ", value);
-  };
+  const [loading, setLoading] = useState(true);
 
   const handleAccept = (values) => {
-    let body = {
-      examName: data.projectName, // Use project name from state
-      examStartDate: values.examDate[0].format("YYYY-MM-DD HH:mm"),
-      examEndDate: values.examDate[1].format("YYYY-MM-DD HH:mm"),
-    };
-
-    console.log("ยินยอม", body);
+    console.log("ยินยอม", values);
     notification.success({
       message: 'ยินยอม',
       description: 'ท่านยินยอมยื่นทดสอบโครงงานพิเศษแล้ว',
       placement: 'topRight',
     });
-    setSubmitDisabled(true); // Disable the submit button
+    setSubmitDisabled(true); // ปิดการใช้งานปุ่มหลังจากส่งข้อมูล
   };
 
+  const onChange = (date, dateString) => {
+    console.log("Selected date:", dateString);
+  };
+
+  useEffect(() => {
+    api
+      .getAllProject()
+      .then((res) => {
+        console.log(res.data.body);
+        if (res.data.body.length > 0) {
+          const projectData = res.data.body[0];
+          console.log(projectData);
+
+          setData({
+            projectName: projectData.projectName,
+            student: projectData.student || [],
+            lecturer: projectData.lecturer || [],
+          });
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          message: 'Error Fetching Projects',
+          description: 'Unable to fetch project data. Please try again later.',
+          placement: 'topRight',
+        });
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div style={{ maxWidth: 600, margin: "auto", padding: 40, borderRadius: 15 }}>
-      <img src={cis} alt="logo" style={{ display: "block", margin: "0 auto", width: "150px" }} />
-      <Typography style={{ textAlign: "center", marginBottom: 24 }}>
+<div style={{ maxWidth: 600, margin: "auto", flexDirection: 'column', alignItems: 'center', textAlign: 'center',  borderRadius: 15 }}>
+      <img src={cis} alt="logo" style={{ width: "150px", marginBottom: 24 }} />
+      <Typography>
         <Title level={3}>หนังสือรับรองการทดสอบโครงงานพิเศษ</Title>
         <Paragraph>
           โครงการพิเศษ (สองภาษา) ภาควิชาวิทยาการคอมพิวเตอร์และสารสนเทศ<br />
@@ -51,57 +76,58 @@ export default function ExamCSB03() {
         <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.projectName}</Paragraph>
       </div>
 
-      <div><br />
-        <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 1</Paragraph>
-        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student1}</Paragraph>
-      </div>
+      <Row gutter={[16, 16]} style={{ width: '100%' }}>
+        <Col span={12}>
+          {data.student.length > 0 && (
+            <div><br />
+              <Paragraph style={{ fontSize: "18px" }}>รายชื่อนักศึกษา</Paragraph>
+              {data.student.map((student, index) => (
+                <Paragraph key={index} style={{ fontSize: "16px", color: "#555" }}>
+                  {index + 1}. {`${student.FirstName} ${student.LastName}`} 
+                </Paragraph>
+              ))}
+            </div> 
+          )}
+        </Col>
+        <Col span={12}>
+          <div><br />
+            <Paragraph style={{ fontSize: "18px" }}>อาจารย์ที่ปรึกษา</Paragraph>
+            {data.lecturer.length > 0 && (
+              data.lecturer.map((lecturer, index) => (
+                <Paragraph key={index} style={{ fontSize: "16px", color: "#555" }}>
+                  {index + 1}. {`${lecturer.FirstName} ${lecturer.LastName}`}
+                </Paragraph>
+              ))
+            )}
+          </div>
+        </Col>
+      </Row>
 
-      <div><br />
-        <Paragraph style={{ fontSize: "18px" }}>นักศึกษาคนที่ 2</Paragraph>
-        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.student2}</Paragraph>
-      </div>
-
-      <div><br />
-        <Paragraph style={{ fontSize: "18px" }}>อาจารย์ที่ปรึกษา</Paragraph>
-        <Paragraph style={{ fontSize: "16px", color: "#555" }}>{data.lecturer}</Paragraph>
-      </div>
-
-      <Form onFinish={handleAccept} layout="vertical">
-        <Space direction="vertical" size={12}>
-          <Form.Item
-            label="วันที่เริ่ม-สิ้นสุด (Exam Date)"
-            name="examDate"
-            rules={[{ required: true, message: "กรุณาเลือกเวลาสอบ" }]}
+      <Form onFinish={handleAccept} layout="vertical" style={{ width: '100%' }}>
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <Form.Item 
+            label="เลือกวันที่ยื่นทดสอบ" 
+            name="date" 
+            rules={[{ required: true, message: 'กรุณาเลือกวันที่!' }]}
+            style={{ textAlign: 'center' }} 
           >
-            <RangePicker
-              showTime={{
-                format: "HH:mm",
-              }}
-              format="YYYY-MM-DD HH:mm"
-              onChange={(value, dateString) => {
-                console.log("Selected Time: ", value);
-                console.log("Formatted Selected Time: ", dateString);
-              }}
-              onOk={onOk}
-              placeholder={["วันที่เริ่มต้น", "วันที่สิ้นสุด"]}
-            />
+            <DatePicker onChange={onChange} format="YYYY-MM-DD" style={{ width: '100%' }} />
           </Form.Item>
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 40 }}>
+            <Row gutter={16}>
+              <Col>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  disabled={isSubmitDisabled}
+                  style={{ padding: "6px 30px", fontSize: "16px" }}
+                >
+                  ยินยอม
+                </Button>
+              </Col>
+            </Row>
+          </div>
         </Space>
-
-        <div style={{ display: "flex", justifyContent: "center", marginTop: 40 }}>
-          <Row gutter={16}>
-            <Col>
-              <Button
-                type="primary"
-                htmlType="submit"
-                disabled={isSubmitDisabled} // Disable after submission
-                style={{ padding: "6px 30px", fontSize: "16px" }}
-              >
-                ยินยอม
-              </Button>
-            </Col>
-          </Row>
-        </div>
       </Form>
     </div>
   );

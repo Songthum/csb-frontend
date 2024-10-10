@@ -1,29 +1,52 @@
 import React, { useState } from "react";
-import { Form, Input, Checkbox, Button, Typography, Row, Col, notification } from "antd";
+import { Form, Input, Checkbox, Button, Typography, Row, Col, notification} from "antd";
 import cis from '../../../../public/image/cis.png';
+import api from '../../../../utils/form/api'; 
 
 const { Title, Paragraph } = Typography;
 
 export default function ExamCSB01() {
-  const [isOtherChecked, setIsOtherChecked] = useState(false);
-
-  const onFinish = (values) => {
-    console.log("Form values: ", values);
-
-    // Trigger success notification
-    notification.success({
-      message: 'บันทึกสำเร็จ',
-      description: 'แบบฟอร์มของคุณได้ถูกบันทึกเรียบร้อยแล้ว!',
-      placement: 'topRight',
-    });
-  };
+  const [form] = Form.useForm();
+  const [isOtherChecked, setIsOtherChecked] = useState(false);  
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   const handleCheckboxChange = (checkedValues) => {
-    if (checkedValues.includes("topic6")) {
-      setIsOtherChecked(true);
-    } else {
-      setIsOtherChecked(false);
-    }
+    setIsOtherChecked(checkedValues.includes("topic6"));
+  };
+
+  const handleSubmit = async (values) => {
+    const body = {
+      projectName: values.projectName,
+      projectType: values.projectType,
+      projectStatus: "0",
+      projectDescription: values.projectDescription,
+      student: values.student,
+      lecturer: values.lecturer,
+      scoreId: "",
+    };
+    console.log("asdadsad",body)
+
+    api
+      .createProject(body)
+      .then((res) => {
+        form.resetFields();
+        setIsSubmitDisabled(true); 
+        notification.success({
+          message: "สำเร็จ",
+          description: "สร้างโปรเจกต์สำเร็จ", 
+          placement: "topRight",
+        });
+
+      })
+   
+      .catch((error) => {
+        console.error(error);
+        notification.error({
+          message: "เกิดข้อผิดพลาด",
+          description: "ไม่สามารถสร้างโปรเจกต์ได้",
+          placement: "topRight",
+        });
+      });
   };
 
   return (
@@ -38,25 +61,69 @@ export default function ExamCSB01() {
       </Typography>
 
       <Form
+        form={form}
         name="projectForm"
         layout="vertical"
-        onFinish={onFinish}
+        onFinish={handleSubmit}
         style={{ maxWidth: 600, margin: "auto" }}
       >
+        {/* Form Fields */}
         <Form.Item
-          label="ชื่อนักศึกษาคนที่ 1"
-          name="student1"
-          rules={[{ required: true, message: "กรุณากรอกชื่อนักศึกษาคนที่ 1" }]}
+          label="รหัสนักศึกษา 1"
+          name={['student', 'student1', 'studentId']}
+          rules={[{ required: true, message: "กรุณากรอกรหัสนักศึกษา 1" }]}
         >
-          <Input placeholder="ชื่อนักศึกษาคนที่ 1" />
+          <Input placeholder="รหัสนักศึกษา 1" />
+        </Form.Item>
+
+        <Form.Item label="ชื่อและนามสกุลนักศึกษา 1">
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name={['student', 'student1', 'FirstName']}
+                rules={[{ required: true, message: "กรุณากรอกชื่อจริงนักศึกษา 1" }]}
+              >
+                <Input placeholder="ชื่อจริงนักศึกษา 1" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name={['student', 'student1', 'LastName']}
+                rules={[{ required: true, message: "กรุณากรอกนามสกุลนักศึกษา 1" }]}
+              >
+                <Input placeholder="นามสกุลนักศึกษา 1" />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form.Item>
 
         <Form.Item
-          label="ชื่อนักศึกษาคนที่ 2"
-          name="student2"
-          rules={[{ required: true, message: "กรุณากรอกชื่อนักศึกษาคนที่ 2" }]}
+          label="รหัสนักศึกษา 2"
+          name={['student', 'student2', 'studentId']}
+          rules={[{ required: true, message: "กรุณากรอกรหัสนักศึกษา 2" }]}
         >
-          <Input placeholder="ชื่อนักศึกษาคนที่ 2" />
+          <Input placeholder="รหัสนักศึกษา 2" />
+        </Form.Item>
+
+        <Form.Item label="ชื่อและนามสกุลนักศึกษา 2">
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name={['student', 'student2', 'FirstName']}
+                rules={[{ required: true, message: "กรุณากรอกชื่อจริงนักศึกษา 2" }]}
+              >
+                <Input placeholder="ชื่อจริงนักศึกษา 2" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name={['student', 'student2', 'LastName']}
+                rules={[{ required: true, message: "กรุณากรอกนามสกุลนักศึกษา 2" }]}
+              >
+                <Input placeholder="นามสกุลนักศึกษา 2" />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form.Item>
 
         <Form.Item
@@ -65,13 +132,6 @@ export default function ExamCSB01() {
           rules={[{ required: true, message: "กรุณากรอกชื่อโครงงานภาษาอังกฤษ" }]}
         >
           <Input placeholder="ชื่อโครงงานภาษาอังกฤษ" />
-        </Form.Item>
-
-        <Form.Item
-          label="ชื่ออาจารย์ที่ปรึกษา (ถ้ามี)"
-          name="lecturer"
-        >
-          <Input placeholder="ชื่ออาจารย์ที่ปรึกษา" />
         </Form.Item>
 
         <Form.Item
@@ -115,7 +175,7 @@ export default function ExamCSB01() {
 
         <Form.Item
           label="รายละเอียด"
-          name="details"
+          name="projectDescription"
           rules={[{ required: true, message: "กรุณากรอกรายละเอียด" }]}
         >
           <Input.TextArea placeholder="กรอกรายละเอียด" rows={4} />
@@ -130,7 +190,7 @@ export default function ExamCSB01() {
         </Form.Item>
 
         <Form.Item style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={isSubmitDisabled}>
             บันทึก
           </Button>
         </Form.Item>

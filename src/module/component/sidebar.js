@@ -61,16 +61,6 @@ const menuItemsStudent = [
     icon: React.createElement(LaptopOutlined),
     label: "ตรวจสอบสถานะโครงงาน",
   }
-  // {
-  //   key: "/add-member-spacial-project",
-  //   icon: React.createElement(UserOutlined),
-  //   label: "เพิ่มรายชื่อนักศึกษา",
-  // },
-  // {
-  //   key: "/student-no-lecture",
-  //   icon: React.createElement(UserOutlined),
-  //   label: "รายชื่อนักศึกษาที่ไม่มีอาจารย์ที่ปรึกษา",
-  // }
 ];
 
 const menuItemsTeacher = [
@@ -81,14 +71,19 @@ const menuItemsTeacher = [
 
   },
   {
-    key: "/request-lecture",
-    icon: React.createElement(LaptopOutlined),
-    label: "คำร้องขอเป็นที่ปรึกษา",
-  },
-  {
-    key: "/approve-csb03",
-    icon: React.createElement(LaptopOutlined),
-    label: "อนุมัติการยื่นทดสอบโครงงาน",
+    key: "/approve",
+    icon: React.createElement(FormOutlined),
+    label: "อนุมัติการยื่นสอบ",
+    children: [
+      {
+        key: "/approve/approve-csb03",
+        label: "อนุมัติการยื่นทดสอบโครงงาน",
+      },
+      {
+        key: "/approve/approve-csb04",
+        label: "อนุมัติการสอบป้องกัน",
+      },
+    ]
   },
   {
     key: "/input-score",
